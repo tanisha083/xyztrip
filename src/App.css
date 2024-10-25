@@ -1,0 +1,139 @@
+/* App.css */
+html, body, #root, .App {
+  height: auto;
+  width: auto;
+  /* max-width: 1200px; */
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* header, footer, main {
+  width: 100%;
+} */
+
+/* Header styling */
+header {
+  /* height: 10vh; */
+  background-color: #f0f0f0;
+  /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
+  /* z-index: 100; */
+}
+
+/* Main content styling */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  background-color: #f0f0f0;
+}
+
+/* Footer styling */
+footer {
+  width: auto;
+  height: auto;
+  background-color: #333;
+  color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* General button styles */
+button {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #e64a19;
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+/* Utility classes for layout */
+.full-width {
+  width: 100%;
+}
+
+.container {
+  width: auto;
+  /* max-width: 1200px; */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.shadow {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Links */
+.footer-nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
+
+/* Media queries for mobile responsiveness */
+@media (max-width: 768px) {
+  html, body, #root, .App {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  footer {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+
+
