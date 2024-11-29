@@ -3,36 +3,24 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import './ResultsPage.css';
-import { User } from 'firebase/auth';
-
-interface Activity {
-  activity: string;
-  rating: string;
-  weather?: string;
-  duration: string;
-  budget?: string;
-  comments?: string;
-  commute_time?: string;
-}
-
-interface ItinerarySection {
-  time: string;
-  activities: Activity[];
-}
+// import { User } from 'firebase/auth';
+import { doc, setDoc, collection } from 'firebase/firestore';
+import { db } from '../../firebase/firebaseConfig';
+// import Itinerary from '../../components/Itinerary/Itinerary';
+import { Section } from '../../types/itineraryTypes';
+import { useAuth } from '../../context/authContext';
 
 interface ParsedItinerary {
   title: string;
-  sections: ItinerarySection[];
+  sections: Section[];
 }
 
-interface ResultsPageProps {
-  user: User | null;
-}
-
-const ResultsPage: React.FC<ResultsPageProps> = ({ user }) => {
+const ResultsPage: React.FC = () => {
+  const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [parsedItinerary, setParsedItinerary] = useState<ParsedItinerary | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     // Extract the itinerary from location.state
@@ -57,70 +45,126 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ user }) => {
     }
   }, [location.state]);
 
+  const saveItinerary = async () => {
+    if (!parsedItinerary || !user) return;
+
+    try {
+      const itineraryRef = doc(collection(db, 'itineraries'));
+      const itineraryData = {
+        ...parsedItinerary,
+        userId: user.uid,
+        timestamp: new Date(),
+        id: itineraryRef.id
+      };
+
+      await setDoc(itineraryRef, itineraryData);
+      console.log('Itinerary saved successfully!');
+      setShowPopup(true);
+    } catch (error) {
+      console.error('Error saving itinerary:', error);
+    }
+  };
+
   return (
-    <div className="ResultsPage">
-      <Header user={user} />
-      <main className="main">
-        <div className="results-container">
+    <div className="ResultsPage font-poppins min-h-screen flex flex-col">
+      <Header/>
+      <main className="flex-grow bg-gray-100">
+        <div className="max-w-screen-lg mx-auto py-8 px-4 sm:px-8">
           {parsedItinerary ? (
             <>
-              <h2 className="results-title">{parsedItinerary.title}</h2>
-              <div className="itinerary-content">
+              <h2 className="text-3xl font-bold text-gray-800 mb-6">
+                {parsedItinerary.title}
+              </h2>
+              <div className="space-y-6">
                 {parsedItinerary.sections && parsedItinerary.sections.length > 0 ? (
                   parsedItinerary.sections.map((section, index) => (
-                    <div key={index} className="itinerary-section">
-                      <h3 className="section-time">{section.time}</h3>
-                      <ul className="activities-list">
+                    <div key={index} className="bg-white rounded-lg shadow-md p-6">
+                      <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                        {section.time}
+                      </h3>
+                      <div className="space-y-4">
                         {section.activities.map((activity, idx) => (
-                          <li key={idx} className="activity">
-                            <div className="activity-name">
-                              <strong>Activity:</strong> {activity.activity}
+                          <div key={idx} className="bg-gray-50 rounded-lg p-4">
+                            <div className="grid gap-2">
+                              <div className="text-gray-800">
+                                <span className="font-semibold">Activity:</span> {activity.activity}
+                              </div>
+                              <div className="text-gray-700">
+                                <span className="font-semibold">Rating:</span> {activity.rating}
+                              </div>
+                              {activity.weather && (
+                                <div className="text-gray-700">
+                                  <span className="font-semibold">Weather:</span> {activity.weather}
+                                </div>
+                              )}
+                              <div className="text-gray-700">
+                                <span className="font-semibold">Duration:</span> {activity.duration}
+                              </div>
+                              {activity.budget && (
+                                <div className="text-gray-700">
+                                  <span className="font-semibold">Budget:</span> {activity.budget}
+                                </div>
+                              )}
+                              {activity.comments && (
+                                <div className="text-gray-700">
+                                  <span className="font-semibold">Comments:</span> {activity.comments}
+                                </div>
+                              )}
+                              {activity.commute_time && (
+                                <div className="text-gray-700">
+                                  <span className="font-semibold">Commute Time:</span> {activity.commute_time}
+                                </div>
+                              )}
                             </div>
-                            <div className="activity-rating">
-                              <strong>Rating:</strong> {activity.rating}
-                            </div>
-                            {activity.weather && (
-                              <div className="activity-weather">
-                                <strong>Weather:</strong> {activity.weather}
-                              </div>
-                            )}
-                            <div className="activity-duration">
-                              <strong>Duration:</strong> {activity.duration}
-                            </div>
-                            {activity.budget && (
-                              <div className="activity-budget">
-                                <strong>Budget:</strong> {activity.budget}
-                              </div>
-                            )}
-                            {activity.comments && (
-                              <div className="activity-comments">
-                                <strong>Comments:</strong> {activity.comments}
-                              </div>
-                            )}
-                            {activity.commute_time && (
-                              <div className="activity-commute-time">
-                                <strong>Commute Time:</strong> {activity.commute_time}
-                              </div>
-                            )}
-                          </li>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
                   ))
                 ) : (
-                  <p>No itinerary sections available.</p>
+                  <p className="text-gray-600 text-center">No itinerary sections available.</p>
                 )}
+              </div>
+              <div className="mt-8 flex justify-center space-x-4">
+                <button 
+                  className="h-[40px] px-6 bg-[#FF5733] hover:bg-[#FF7849] text-white font-semibold rounded
+                    transition-all duration-300 shadow-md hover:shadow-lg active:translate-y-0.5
+                    focus:outline-none focus:ring-2 focus:ring-[#FF5733] focus:ring-opacity-50"
+                  onClick={() => navigate('/plan-trip')}
+                >
+                  Go Back
+                </button>
+                <button 
+                  className="h-[40px] px-6 bg-green-500 hover:bg-green-600 text-white font-semibold rounded
+                    transition-all duration-300 shadow-md hover:shadow-lg active:translate-y-0.5
+                    focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                  onClick={saveItinerary}
+                >
+                  Save Itinerary
+                </button>
               </div>
             </>
           ) : (
-            <p>Loading itinerary... Please wait or try again.</p>
+            <p className="text-gray-600 text-center">Loading itinerary... Please wait or try again.</p>
           )}
-          <button className="go-back-button" onClick={() => navigate('/plan-trip')}>
-            Go Back
-          </button>
         </div>
       </main>
       <Footer />
+      {showPopup && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+            <p className="text-gray-800 mb-4">Itinerary saved successfully!</p>
+            <button
+              className="h-[40px] px-6 bg-[#FF5733] hover:bg-[#FF7849] text-white font-semibold rounded
+                transition-all duration-300 shadow-md hover:shadow-lg active:translate-y-0.5
+                focus:outline-none focus:ring-2 focus:ring-[#FF5733] focus:ring-opacity-50"
+              onClick={() => setShowPopup(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -122,8 +122,8 @@
 }
 
 .chatbox-input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  border-color: #1a1a1a;
+  box-shadow: 0 0 10px rgba(34, 34, 34, 0.24);
 }
 
 
@@ -171,10 +171,10 @@
   box-sizing: border-box;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
-.chatbox-comment:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
-}
+/* .chatbox-comment:focus {
+  border-color: #1a1a1a;
+  box-shadow: 0 0 10px rgba(34, 34, 34, 0.24);
+} */
 
 .chatbox-comment::placeholder {
   color: #888;
@@ -359,3 +359,14 @@ textarea:-webkit-autofill {
 .chatbox-icons img:hover {
   transform: scale(1.1);
 }
+
+/* General Focus Styling for Inputs and Textareas */
+.chatbox-input:focus,
+.chatbox-comment:focus,
+.date-input:focus {
+  outline: none; /* Remove default browser outline */
+  border-color: #5c5c5c; /* Soft grey border color */
+  box-shadow: 0 0 10px rgba(176, 176, 176, 0.3); /* Subtle grey glow */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for better aesthetics */
+}
+

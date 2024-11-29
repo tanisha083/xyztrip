@@ -2,15 +2,10 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import { User } from 'firebase/auth';
 import './SignIn.css';
 
 
-interface SignInProps {
-  user: User | null;
-}
-
-const SignIn: React.FC<SignInProps> = ({ user }) => {
+const SignIn: React.FC = () => {
   // const [email, setEmail] = useState('');
   // const [password, setPassword] = useState('');
   // const [error, setError] = useState('');
@@ -41,7 +36,7 @@ const SignIn: React.FC<SignInProps> = ({ user }) => {
 
   return (
     <>
-      <Header user={user} />
+      <Header />
       <div className="auth-container">
         <h2>Sign In</h2>
         {/* <form onSubmit={handleSignIn}>

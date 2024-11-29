@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import './SignUp.css';
 
-interface SignUpProps {
-  user: User | null;
-}
 
-const SignUp: React.FC<SignUpProps> = ({ user }) => {
+const SignUp: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -46,7 +43,7 @@ const SignUp: React.FC<SignUpProps> = ({ user }) => {
 
   return (
     <>
-      <Header user={user} />
+      <Header />
       <div className="auth-container">
         <h2>Sign Up</h2>
         <form onSubmit={handleSignUp}>
