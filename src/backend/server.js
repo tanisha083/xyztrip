@@ -23,10 +23,14 @@ app.post('/api/get-itinerary', async (req, res) => {
 - detailed timings
 - place ratings
 - weather suggestions
-- key highlights for each day.
+- key highlights for each day
 - spending budget for each activity
 - extra comments and suggestions for each activity
-- commute time between activities.
+- commute time between activities
+- specific location details (e.g., city, country)
+- place types (e.g., museum, park, restaurant)
+- address or nearby landmarks.
+- the structure of the JSON response should be strictlyas follows:
 
 Structure the JSON response with:
 {
@@ -42,7 +46,13 @@ Structure the JSON response with:
           "duration": "2 hours", 
           "budget": "₹500", 
           "comments": "Red Fort is a significant historical landmark. Make sure to hire a guide to understand its history better.",
-          "commute_time": "15 mins from previous location"
+          "commute_time": "15 mins from previous location",
+          "location_details": {
+            "city": "Delhi",
+            "country": "India",
+            "place_type": "historical landmark",
+            "address": "Netaji Subhash Marg, Lal Qila, Chandni Chowk, New Delhi, Delhi 110006"
+          }
         }
       ]
     }

@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
+    "composite": true,
     "target": "ES2022",
     "lib": ["ES2023"],
-    "module": "ESNext",
+    "module": "CommonJS", // Changed to CommonJS for Node.js compatibility
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    "moduleResolution": "node", // Use "node" for backend compatibility
+    "allowSyntheticDefaultImports": true, // Ensures compatibility with CommonJS modules
+    "esModuleInterop": true, // Compatibility with CommonJS
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true,
 
     /* Linting */
     "strict": true,

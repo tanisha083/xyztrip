@@ -1,0 +1,12 @@
+/* // About.css */
+.AboutPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.AboutMain {
+  max-width: 800px;
+  text-align: center;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const Footer: React.FC = () => {
   return (
@@ -26,15 +26,22 @@ const Footer: React.FC = () => {
           </a>
         </nav>
         <div className="flex gap-6 justify-center w-full md:w-auto">
-          <div className="text-[#FF5733] hover:text-[#FF7849] cursor-pointer transition-all duration-300 hover:scale-110">
-            <FaFacebook size={28} />
-          </div>
-          <div className="text-[#FF5733] hover:text-[#FF7849] cursor-pointer transition-all duration-300 hover:scale-110">
+          <a 
+            href="https://x.com/trip_tailor_" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-[#FF5733] hover:text-[#FF7849] cursor-pointer transition-all duration-300 hover:scale-110"
+          >
             <FaTwitter size={28} />
-          </div>
-          <div className="text-[#FF5733] hover:text-[#FF7849] cursor-pointer transition-all duration-300 hover:scale-110">
+          </a>
+          <a 
+            href="https://www.instagram.com/triptailor.contact/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-[#FF5733] hover:text-[#FF7849] cursor-pointer transition-all duration-300 hover:scale-110"
+          >
             <FaInstagram size={28} />
-          </div>
+          </a>
         </div>
       </div>
     </footer>

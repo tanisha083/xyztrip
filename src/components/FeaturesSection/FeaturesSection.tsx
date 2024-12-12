@@ -1,5 +1,5 @@
 // FeaturesSection Component (FeaturesSection.tsx)
-import React from 'react';
+// import React from 'react';
 import { FaMapMarkedAlt, FaMoneyBillWave, FaStar } from 'react-icons/fa';
 
 const FeaturesSection: React.FC = () => {
@@ -24,8 +24,8 @@ const FeaturesSection: React.FC = () => {
           <div className="flex justify-center items-center text-[#FF5733] hover:text-[#FF7849] mx-auto mb-3 transition-all duration-300 hover:scale-110">
             <FaStar size={34} />
           </div>
-          <h4 className="mt-1 text-xl font-bold text-gray-500">Expert Recommendation</h4>
-          <p className="text-base text-gray-500 mt-1">Receive recommendation from experts & make most of your trip.</p>
+          <h4 className="mt-1 text-xl font-bold text-gray-500">Curated Suggestions</h4>
+          <p className="text-base text-gray-500 mt-1">Discover top-rated destinations, activities, and places to explore, all tailored to enhance your trip.</p>
         </div>
       </div>
     </section>

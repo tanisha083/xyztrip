@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "node", // Switch to "node" for better compatibility
+    "allowSyntheticDefaultImports": true, // Enable default imports for React
+    "esModuleInterop": true, // Ensure compatibility with CommonJS modules
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Add the following to enable proper path resolution */
+    "baseUrl": "./",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "pages/*": ["src/pages/*"]
+    }
+  },
+  "include": ["src"]
+}
