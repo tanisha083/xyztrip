@@ -4,12 +4,16 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import './SignIn.css';
+import { useNavigate } from 'react-router-dom';
+// import { useAuth } from '../../context/authContext';
 const SignIn = () => {
     // const [email, setEmail] = useState('');
     // const [password, setPassword] = useState('');
     // const [error, setError] = useState('');
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
+    const navigate = useNavigate();
+    // const { user } = useAuth();
     // const handleSignIn = async (e: React.FormEvent) => {
     //   e.preventDefault();
     //   try {
@@ -26,6 +30,10 @@ const SignIn = () => {
     const handleGoogleSignIn = async () => {
         try {
             await signInWithPopup(auth, provider);
+            const currentUser = auth.currentUser;
+            if (currentUser) {
+                navigate('/plan-trip');
+            }
         }
         catch (err) {
             console.error(err);

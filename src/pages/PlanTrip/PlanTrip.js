@@ -16,8 +16,8 @@ const PlanTrip = () => {
     });
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    // const apiUrl = 'http://localhost:5001';
-    const apiUrl = 'https://app-ro36oybh2a-uc.a.run.app';
+    const apiUrl = 'http://localhost:5001';
+    // const apiUrl = 'https://app-ro36oybh2a-uc.a.run.app';
     // const apiUrl = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5001/triptailor-47b4b/us-central1/app';
     console.log(apiUrl);
     const handleInputChange = (e) => {
